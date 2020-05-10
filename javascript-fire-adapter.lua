@@ -1,0 +1,1 @@
+js.global.update = update

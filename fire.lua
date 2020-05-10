@@ -1,10 +1,10 @@
 firePixelsArray = {}
 
-local fireWidth = 4
-local fireHeight = 8
+local fireWidth = 60
+local fireHeight = 40
 local pixelsQuantity = fireWidth * fireHeight
 local lastPixelIndex = (pixelsQuantity - 1)
-local fireWay = 1
+local fireWay = 0
 local fireColorsPalette = {
   {r=7,g=7,b=7},
   {r=31,g=7,b=7},
@@ -49,12 +49,12 @@ function start()
   createFireDataStructure()
   createFireSource()
 
-  for i=0, 4 do
-    calculateFirePropagation()
-    renderFire()
-    print("=============================================")
-    print()
-  end
+  --for i=0, 4 do
+  --  calculateFirePropagation()
+  --  renderFire()
+  --  print("=============================================")
+  --  print()
+  --end
 
 end
 
@@ -102,7 +102,6 @@ function updateFireIntensityPerPixel(currentPixelIndex)
   end
 
   local decay = math.floor(math.random() * 3)
-  --local decay = 1
   local belowPixelFireIntensity = firePixelsArray[belowPixelIndex]
   local newFireIntensity = math.max(belowPixelFireIntensity - decay, 0)
 
@@ -131,5 +130,13 @@ function updateFireIntensityPerPixel(currentPixelIndex)
 
 end
 
+function getFirePixelsArray()
+  return firePixelsArray
+end
+
+function update()
+  calculateFirePropagation()
+  return firePixelsArray
+end
 
 start()
