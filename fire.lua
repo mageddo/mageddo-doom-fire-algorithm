@@ -106,13 +106,28 @@ function updateFireIntensityPerPixel(currentPixelIndex)
   local belowPixelFireIntensity = firePixelsArray[belowPixelIndex]
   local newFireIntensity = math.max(belowPixelFireIntensity - decay, 0)
 
-  if fireWay == 0 then
-    firePixelsArray[currentPixelIndex - decay] = newFireIntensity -- wind comes to the left
-  elseif fireWay == 1 then
-    firePixelsArray[currentPixelIndex] = newFireIntensity -- no wind (fire set to up)
-  elseif fireWay == 2 then
-    firePixelsArray[currentPixelIndex + decay] = newFireIntensity --wind comes to the right
-  end
+  local wayOptions = {
+    [0] = {
+      description = "Wind comes from left",
+      fn = function ()
+        firePixelsArray[currentPixelIndex - decay] = newFireIntensity
+      end
+    },
+    [1] = {
+      description = "No wind",
+      fn = function()
+        firePixelsArray[currentPixelIndex] = newFireIntensity
+      end
+    },
+    [2] = {
+      description = "Wind comes to the right",
+      fn = function()
+        firePixelsArray[currentPixelIndex + decay] = newFireIntensity
+      end
+    }
+  }
+
+  wayOptions[fireWay].fn()
 
 end
 
