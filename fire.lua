@@ -1,10 +1,3 @@
-firePixelsArray = {}
-
-local fireWidth = 60
-local fireHeight = 40
-local pixelsQuantity = fireWidth * fireHeight
-local lastPixelIndex = (pixelsQuantity - 1)
-local fireWay = 0
 local fireColorsPalette = {
   {r=7,g=7,b=7},
   {r=31,g=7,b=7},
@@ -45,7 +38,15 @@ local fireColorsPalette = {
   {r=255,g=255,b=255}
 }
 
-function start()
+function start(fireWidth, fireHeight, fireWay)
+
+  _G.fireWidth = fireWidth or 3
+  _G.fireHeight = fireHeight or 3
+  _G.fireWay = fireWay or 1
+  firePixelsArray = {}
+  pixelsQuantity = fireWidth * fireHeight
+  lastPixelIndex = (pixelsQuantity - 1)
+
   createFireDataStructure()
   createFireSource()
 
@@ -139,4 +140,4 @@ function update()
   return firePixelsArray
 end
 
-start()
+start(60, 40, 0)
